@@ -38,10 +38,6 @@ $row = $result->fetch_array();
                                         <input type="text" class="form-control" name="criteria" value="<?=$row['criteria'];?>">
                                     </div>
                                     <div class="form-group">
-                                        <label for="basicInput">Weight</label>
-                                        <input type="text" class="form-control" name="weight" value="<?=$row['weight'];?>">
-                                    </div>
-                                    <div class="form-group">
                                         <label for="basicInput">Attribute</label>
                                         <select class="form-control form-select" name="attribute">
                                             <option value="benefit">Benefit</option>

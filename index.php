@@ -24,6 +24,8 @@
                                 <div class="card-content">
                                     <div class="card-body">
                                         <p class="card-text">
+                                        Metode AHP (Analytic Hierarchy Process) adalah teknik pengambilan keputusan untuk menentukan bobot kriteria melalui perbandingan berpasangan, menghasilkan prioritas yang konsisten dan terukur.
+                                        <br><br>
                                         Metode COPRAS digunakan untuk menganalisis alternatif yang berbeda, dan memperkirakan alternatif sesuai dengan tingkat utilitasnya dimana nilai-nilai dari atribut dinyatakan dalam interval untuk meningkatkan efisiensi dan meningkatkan akurasi dalam proses pengambilan keputusan.
                                         </p>
                                         <hr>
