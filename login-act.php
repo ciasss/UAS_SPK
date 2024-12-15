@@ -13,5 +13,9 @@ if ($cek > 0) {
     $_SESSION['status'] = "login";
     header("location:index.php");
 } else {
-    header("location:login.php");
+    header("location:login.php?error=invalid");
+}
+
+if (isset($_GET['error']) && $_GET['error'] == 'invalid') {
+    echo "<p style='color: red;'>Username atau password salah!</p>";
 }
