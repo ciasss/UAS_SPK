@@ -19,7 +19,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Sistem Pendukung Keputusan pemilihan sepeda motor matic terbaik</h4>
+                                    <h4>Sistem Pendukung Keputusan Penilaian Kerja Karyawan</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
