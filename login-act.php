@@ -4,18 +4,31 @@ include 'include/conn.php';
 $username = $_POST['username'];
 $password = md5($_POST['password']);
 
-$login = $db->query("select * from saw_users where username='$username' and password='$password'");
+// Query untuk memeriksa username, password, dan role
+$login = $db->query("SELECT * FROM saw_users WHERE username='$username' AND password='$password'");
 $cek = mysqli_num_rows($login);
 
 if ($cek > 0) {
     session_start();
-    $_SESSION['username'] = $username;
+    $data = $login->fetch_assoc();
+
+    // Simpan data ke session
+    $_SESSION['username'] = $data['username'];
+    $_SESSION['role'] = $data['role'];
     $_SESSION['status'] = "login";
-    header("location:index.php");
+
+    // Arahkan berdasarkan role
+    if ($data['role'] == 'admin') {
+        header("location:index.php");
+    } elseif ($data['role'] == 'manager') {
+        header("location:manager_dashboard.php");
+    } elseif ($data['role'] == 'user') {
+        header("location:user.php");
+    } else {
+        // Jika role tidak diketahui
+        header("location:login.php?error=unknown_role");
+    }
 } else {
     header("location:login.php?error=invalid");
 }
-
-if (isset($_GET['error']) && $_GET['error'] == 'invalid') {
-    echo "<p style='color: red;'>Username atau password salah!</p>";
-}
+?>

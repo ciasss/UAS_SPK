@@ -13,6 +13,12 @@
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 'invalid') {
+    echo "<script>alert('Username atau password salah!');</script>";
+}
+?>
+
 <body>
     <div id="auth">
 
