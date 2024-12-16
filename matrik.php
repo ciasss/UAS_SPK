@@ -78,16 +78,17 @@ require "include/conn.php";
                       array_push($X[3], round($row->C3, 2));
                       array_push($X[4], round($row->C4, 2));
                       array_push($X[5], round($row->C5, 2));
-                      echo "<tr class='center'>
+                      echo "
+                      <tr class='center'>
   <th>A<sub>{$row->id_alternative}</sub> {$row->name}</th>
   <td>" . round($row->C1, 2)  . "</td>
   <td>" . round($row->C2, 2) . "</td>
   <td>" . round($row->C3, 2) . "</td>
   <td>" . round($row->C4, 2) . "</td>
   <td>" . round($row->C5, 2) . "</td>
-  <td>
+  <!--<td> 
   <a href='keputusan-hapus.php?id={$row->id_alternative}' class='btn btn-danger btn-sm'>Hapus</a>
-  </td>
+  </td>-->
   </tr>\n";
                     }
                     $total_C1 = array_sum($X[1]);

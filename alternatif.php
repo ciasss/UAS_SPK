@@ -42,39 +42,65 @@ require "include/conn.php";
                     <caption>
                       Tabel Alternatif A<sub>i</sub>
                     </caption>
+                    <?php 
+                    $sql = "SELECT criteria FROM saw_criterias";
+                    $result = $db->query($sql);
+                    
+                    echo "
                     <tr>
                       <th>No</th>
-                      <th colspan="2">Name</th>
-                      <!-- <th>C1</th>
-                      <th>C2</th>
-                      <th>C3</th>
-                      <th>C4</th>
-                      <th>C5</th> -->
+                      <th>Nama Karyawan</th>";
+                    while ($row = $result->fetch_array()){
+                      echo " 
+                      <th>{$row['criteria']}</th>";
+                    } 
+                    echo "
+                      <th></th>
                     </tr>
-                    <?php
-                    $sql = 'SELECT id_alternative,name FROM saw_alternatives';
+                    ";
+
+                    
+                    $sql = 'SELECT 
+                    e.id_alternative,
+                    a.name,
+                    MAX(CASE WHEN e.id_criteria = 1 THEN e.value END) AS C1,
+                    MAX(CASE WHEN e.id_criteria = 2 THEN e.value END) AS C2,
+                    MAX(CASE WHEN e.id_criteria = 3 THEN e.value END) AS C3,
+                    MAX(CASE WHEN e.id_criteria = 4 THEN e.value END) AS C4,
+                    MAX(CASE WHEN e.id_criteria = 5 THEN e.value END) AS C5
+
+                    FROM saw_evaluations e
+                    JOIN saw_alternatives a
+                    USING(id_alternative)
+                    GROUP BY a.id_alternative, a.name';
                     $result = $db->query($sql);
                     $i = 0;
                     while ($row = $result->fetch_object()) {
-                      echo "<tr>
-    <td class='right'>" . (++$i) . "</td>
-    <td class='center'>{$row->name}</td>
-    <td>
-    <div class='btn-group mb-1'>
-    <div class='dropdown'>
-      <button class='btn btn-primary dropdown-toggle me-1 btn-sm' type='button'
-        id='dropdownMenuButton' data-bs-toggle='dropdown'
-        aria-haspopup='true' aria-expanded='false'>
-        Aksi
-      </button>
-      <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-        <a class='dropdown-item' href='alternatif-edit.php?id={$row->id_alternative}'>Edit</a>
-        <a class='dropdown-item' href='alternatif-hapus.php?id={$row->id_alternative}'>Hapus</a>
-      </div>
-    </div>
-  </div>
-    </td>
-    </tr>\n";
+                      echo "
+                      <tr>
+                        <td class='right'>" . (++$i) . "</td>
+                        <td class='center'>{$row->name}</td>
+                        <td>{$row->C1}</td>
+                        <td>{$row->C2}</td>
+                        <td>{$row->C3}</td>
+                        <td>{$row->C4}</td>
+                        <td>{$row->C5}</td>
+                        <td>
+                          <div class='btn-group mb-1'>
+                            <div class='dropdown'>
+                              <button class='btn btn-primary dropdown-toggle me-1 btn-sm' type='button'
+                                id='dropdownMenuButton' data-bs-toggle='dropdown'
+                                aria-haspopup='true' aria-expanded='false'>
+                                Aksi
+                              </button>
+                              <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+                                <a class='dropdown-item' href='alternatif-edit.php?id={$row->id_alternative}'>Edit</a>
+                                <a class='dropdown-item' href='alternatif-hapus.php?id={$row->id_alternative}'>Hapus</a>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        </tr>\n";
                     }
                     $result->free();
                     ?>
@@ -93,13 +119,38 @@ require "include/conn.php";
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel33">Login Form </h4>
+          <h4 class="modal-title" id="myModalLabel33">Tambah Data Alternatif</h4>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <i data-feather="x"></i>
           </button>
         </div>
         <form action="alternatif-simpan.php" method="POST">
           <div class="modal-body">
+            <label>Name: </label>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+                required>
+            </div>
+            <label>Name: </label>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+                required>
+            </div>
+            <label>: </label>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+                required>
+            </div>
+            <label>Name: </label>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+                required>
+            </div>
+            <label>Name: </label>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+                required>
+            </div>
             <label>Name: </label>
             <div class="form-group">
               <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
