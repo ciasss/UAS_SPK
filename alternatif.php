@@ -131,29 +131,29 @@ require "include/conn.php";
               <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
                 required>
             </div>
-            <label>Name: </label>
+            <label>Kerja Sama: </label>
             <div class="form-group">
-              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+              <input type="text" name="c1" placeholder="Nilai Kerja Sama..." class="form-control"
                 required>
             </div>
-            <label>: </label>
+            <label>Perilaku: </label>
             <div class="form-group">
-              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+              <input type="text" name="c2" placeholder="Nilai Perilaku..." class="form-control"
                 required>
             </div>
-            <label>Name: </label>
+            <label>Kehadiran: </label>
             <div class="form-group">
-              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+              <input type="text" name="c3" placeholder="Nilai Kehadiran..." class="form-control"
                 required>
             </div>
-            <label>Name: </label>
+            <label>Bertanggung Jawab: </label>
             <div class="form-group">
-              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+              <input type="text" name="c4" placeholder="Nilai Bertanggung Jawab..." class="form-control"
                 required>
             </div>
-            <label>Name: </label>
+            <label>Kemampuan Bekerja: </label>
             <div class="form-group">
-              <input type="text" name="name" placeholder="Nama Kandidat..." class="form-control"
+              <input type="text" name="c5" placeholder="Nilai Kemampuan Bekerja..." class="form-control"
                 required>
             </div>
           </div>
