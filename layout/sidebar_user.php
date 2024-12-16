@@ -1,3 +1,11 @@
+<?php 
+    // session_start(); // Mulai session
+        if (!isset($_SESSION['username'])) {
+            header("location:login.php"); // Redirect jika user belum login
+            exit;
+        }
+        $username = $_SESSION['username']; // Ambil username dari session
+    ?>
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header">
@@ -21,19 +29,11 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item">
+                    <a href="kriteria.php" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>Data</span>
+                        <span>Kriteria Penilaian</span>
                     </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="alternatif.php">Alternatif</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="bobot.php">Bobot &amp; Kriteria</a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class="sidebar-item">
