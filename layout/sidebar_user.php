@@ -37,9 +37,9 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="matrik.php" class='sidebar-link'>
+                    <a href="penilaian.php" class='sidebar-link'>
                         <i class="bi bi-pentagon-fill"></i>
-                        <span>Matrik</span>
+                        <span>Penilaian</span>
                     </a>
                 </li>
 
