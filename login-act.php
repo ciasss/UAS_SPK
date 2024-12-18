@@ -16,6 +16,7 @@ if ($cek > 0) {
     $_SESSION['username'] = $data['username'];
     $_SESSION['role'] = $data['role'];
     $_SESSION['status'] = "login";
+    header("location:index.php");
 
     // Arahkan berdasarkan role
     if ($data['role'] == 'admin') {

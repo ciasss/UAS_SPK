@@ -43,6 +43,16 @@
                     </a>
                 </li>
 
+                <!-- Hanya tampil jika role adalah admin -->
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+                    <li class="sidebar-item">
+                        <a href="kelola_user.php" class='sidebar-link'>
+                            <i class="bi bi-person-fill"></i>
+                            <span>Kelola Data User</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
                 <li class="sidebar-item">
                     <a href="logout.php" class='sidebar-link'>
                         <i class="bi bi-box-arrow-right"></i>
