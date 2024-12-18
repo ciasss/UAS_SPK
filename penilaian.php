@@ -948,6 +948,10 @@ $username = $_SESSION['username']; // Ambil username dari session
                       $maxq = max($array_maxq);
 
                       $utilitas = round(($relatif3 / $getMaxq), 3);
+                      $data_utilitas[] = [
+                        'name' => $row->name,
+                        'utilitas' => $utilitas,
+                      ];
                       echo "<tr class='center'>
                             
                             <th>{$row->id_alternative}</th>
@@ -963,8 +967,32 @@ $username = $_SESSION['username']; // Ambil username dari session
                             </tr>\n";
                     }
                     $result->free();
+                    usort($data_utilitas, function ($a, $b) {
+                      return $b['utilitas'] <=> $a['utilitas'];
+                  });
                     ?>
                   </table><br><br>
+
+                  <!-- Tabel Nilai Descending -->
+                  <h3>Tabel Nilai Terurut</h3>
+                  <table class="table table-striped mb-0">
+                      <tr>
+                        <th>Rank</th>
+                        <th>Nama</th>
+                        <th>Nilai</th>
+                      </tr>
+                      <?php 
+                      $i = 1;
+                      foreach ($data_utilitas as $item): ?>
+                          <tr>
+                            <td><?php echo $i++; ?></td>
+                            <td><?php echo htmlspecialchars($item['name']); ?></td>
+                            <td><?php echo $item['utilitas']; ?></td>
+                          </tr>
+                      <?php endforeach; ?>
+                  </table>
+
+
                 </div>
               </div>
             </div>

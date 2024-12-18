@@ -682,7 +682,7 @@ FROM
                   </table><br><br>
 
 
-                  <!-- Tabel Nilai Ascending -->
+                  <!-- Tabel Nilai Descending -->
                   <h3>Tabel Nilai Terurut</h3>
                   <table class="table table-striped mb-0">
                       <tr>
