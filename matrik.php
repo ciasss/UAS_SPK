@@ -676,7 +676,7 @@ FROM
                     }
                     $result->free();
                     usort($data_utilitas, function ($a, $b) {
-                      return $a['utilitas'] <=> $b['utilitas'];
+                      return $b['utilitas'] <=> $a['utilitas'];
                   });
                     ?>
                   </table><br><br>
