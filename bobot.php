@@ -21,212 +21,68 @@ require "include/conn.php";
         <section class="row">
           <div class="col-12">
             <div class="card">
-
-              <div class="card-header">
-                <h4 class="card-title">Tabel Bobot Kriteria</h4>
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Daftar Kriteria</h4>
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">Tambah Kriteria</button>
               </div>
               <div class="card-content">
                 <div class="card-body">
-                  <p class="card-text">Pengambil keputusan memberi bobot preferensi dari setiap kriteria dengan
-                    masing-masing jenisnya (keuntungan/benefit atau biaya/cost):</p>
-                </div>
-                <div class="table-responsive">
-                  <table class="table table-striped mb-0">
-                    <caption>
-                      Tabel Kriteria C<sub>i</sub>
-                    </caption>
-                    <tr>
-                      <th>No</th>
-                      <th>Simbol</th>
-                      <th>Kriteria</th>
-                      <th>Bobot</th>
-                      <th colspan="2">Atribut</th>
-                    </tr>
-                    <?php
-                    $sql = 'SELECT id_criteria,criteria,weight,attribute FROM saw_criterias';
-                    $result = $db->query($sql);
-                    $i = 0;
-                    while ($row = $result->fetch_object()) {
-                      echo "<tr>
-        <td class='right'>" . (++$i) . "</td>
-        <td class='center'>C{$i}</td>
-        <td>{$row->criteria}</td>
-        <td>{$row->weight}</td>
-        <td>{$row->attribute}</td>
-        <td>
-            <a href='bobot-edit.php?id={$row->id_criteria}' class='btn btn-info btn-sm'>Edit</a>
-            </td>
-      </tr>\n";
-                    }
-                    $result->free();
-                    ?>
-                  </table><br><br>
-
-
-                  <?php
-                  $matrix = [
-                    [1, 2, 3, 4, 5],
-                    [1 / 2, 1, 2, 3, 4],
-                    [1 / 3, 1 / 2, 1, 2, 3],
-                    [1 / 4, 1 / 3, 1 / 2, 1, 2],
-                    [1 / 5, 1 / 4, 1 / 3, 1 / 2, 1]
-                  ];
-                  ?>
-                  <table class="table table-striped mb-0">
-                    <caption>
-                      Matriks Perbandingan Kriteria
-                    </caption>
-                    <tr>
-                      <th>Bobot</th>
-                      <th>C1</th>
-                      <th>C2</th>
-                      <th>C3</th>
-                      <th>C4</th>
-                      <th>C5</th>
-                    </tr>
-
-                    <?php
-                    $columnTotals = array_fill(0, count($matrix[0]), 0);
-
-                    for ($i = 0; $i < count($matrix); $i++) {
-                      echo "<tr>";
-                      echo "<th>C" . ($i + 1) . "</th>"; // Header baris
-
-                      for ($j = 0; $j < count($matrix[$i]); $j++) {
-                        $value = $matrix[$i][$j];
-                        $columnTotals[$j] += $value;
-                        echo "<td>" . number_format($value, 4) . "</td>"; // Format angka desimal
-                        // hapus
-                      }
-
-                      echo "</tr>";
-                    }
-                    ?>
-                    <tr>
-                      <th>Total</th>
-                      <?php
-                      foreach ($columnTotals as $total) {
-                        echo "<td>" . number_format($total, 4) . "</td>"; // Tampilkan total kolom
-                      }
-                      ?>
-                    </tr>
-                  </table><br><br>
-
-                  <!-- aman -->
-                  <table class="table table-striped mb-0">
-                    <caption>
-                      Normalisasi Matriks Kriteria
-                    </caption>
-                    <tr>
-                      <th>Bobot</th>
-                      <th>C1</th>
-                      <th>C2</th>
-                      <th>C3</th>
-                      <th>C4</th>
-                      <th>C5</th>
-                    </tr>
-
-                    <?php
-
-                    for ($i = 0; $i < count($matrix); $i++) {
-                      echo "<tr>";
-                      echo "<th>C" . ($i + 1) . "</th>"; // Header baris
-                      for ($j = 0; $j < count($matrix[$i]); $j++) {
-                        $matrix[$i][$j] = $matrix[$i][$j] / $columnTotals[$j];
-                        echo "<td>" . number_format($matrix[$i][$j], 4)  . "</td>"; // Format angka desimal
-                      }
-                      echo "</tr>";
-                    }
-
-                    $columnTotals = array_fill(0, count($columnTotals), 0);
-                    for ($i = 0; $i < count($matrix); $i++) {
-                      for ($j = 0; $j < count($matrix[$i]); $j++) {
-                        $value = $matrix[$i][$j];
-                        $columnTotals[$j] += $value;
-                      }
-                    } ?>
-
-                    <tr>
-                      <th>Total</th>
-                      <?php
-                      foreach ($columnTotals as $total) {
-                        echo "<td>" . number_format($total, 4) . "</td>"; // Tampilkan total kolom
-                      }
-                      ?>
-                    </tr>
-                  </table><br><br>
-
-                  <!-- NILAI RATA RATA -->
-                  <table class="table table-striped mb-0">
-                    <caption>
-                      Nilai Rata-Rata Tiap Baris
-                    </caption>
-                    <tr>
-                      <th>Bobot</th>
-                      <th>C1</th>
-                      <th>C2</th>
-                      <th>C3</th>
-                      <th>C4</th>
-                      <th>C5</th>
-                      <th>Nilai Rata-Rata</th>
-                    </tr>
-
-                    <?php
-                    $rowTotals = array_fill(0, 5, 0);
-                    for ($i = 0; $i < count($matrix); $i++) {
-                      echo "<tr>";
-                      echo "<th>C" . ($i + 1) . "</th>"; // Header baris
-
-                      // $rowTotal=0;
-                      for ($j = 0; $j < count($matrix[$i]); $j++) {
-                        // $rowTotal+=$matrix[$i][$j];
-                        $value = $matrix[$i][$j];
-                        $rowTotals[$i] += $value;
-                        echo "<td>" . number_format($value, 4) . "</td>"; // Format angka desimal
-                      }
-                      // $rowAverage = $rowTotal / count($matrix[$i]);
-                      echo "<td>" . number_format($rowTotals[$i] / 5, 4) . "</td>";
-                      echo "</tr>";
-                      $totalAvarageRow = array_sum($rowTotals) / 5;
-                    } ?>
-
-                    <tr>
-                      <th colspan='6'>Total</th>
-                      <th><?php echo $totalAvarageRow ?></th>
-                    </tr>
-
-                  </table><br><br>
-
-
-                  <table class="table table-striped mb-0">
-                    <caption>
-                      Nilai Bobot
-                    </caption>
-                    <tr>
-                      <th>Kriteria</th>
-                      <th>Bobot</th>
-                    </tr>
-
-                    <?php
-                    $bobot;
-                    for ($i = 0; $i < count($rowTotals); $i++) {
-                    echo "<tr>";
-                    $id=$i+1;
-                    echo "<th>C" . ($i + 1) . "</th>";
-                    $bobot=$rowTotals[$i]/5;
-                    $sql = "UPDATE saw_criterias SET weight='$bobot' WHERE id_criteria='$id'";
-                    $result = $db->query($sql);
-                    echo "<td>" . number_format($bobot, 4) . "</td>";
-                    echo "</tr>";
-                    }
-                    ?>
-
-                  </table><br><br>
-
-
+                  <p class="card-text">
+                    Tentukan prioritas perbandingan berpasangan untuk setiap kriteria.
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                      <caption>Tabel Kriteria</caption>
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Simbol</th>
+                          <th>Kriteria</th>
+                          <th>Bobot</th>
+                          <th>Atribut</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody id="criteriaTable">
+                        <!-- Data akan dimuat menggunakan JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- Modal Tambah Kriteria -->
+            <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form id="addForm">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Tambah Kriteria</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="criteria">Nama Kriteria</label>
+                        <input type="text" id="criteria" name="criteria" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="attribute">Atribut</label>
+                        <select id="attribute" name="attribute" class="form-control">
+                          <option value="benefit">Benefit</option>
+                          <option value="cost">Cost</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
       </div>
@@ -234,6 +90,54 @@ require "include/conn.php";
     </div>
   </div>
   <?php require "layout/js.php"; ?>
+
+  <script>
+    // Fetch data from server
+    function loadCriteria() {
+      fetch('criteria-api.php')
+        .then(response => response.json())
+        .then(data => {
+          let tableRows = '';
+          data.forEach((criteria, index) => {
+            tableRows += `
+              <tr>
+                <td>${index + 1}</td>
+                <td>C${index + 1}</td>
+                <td>${criteria.criteria}</td>
+                <td>${criteria.weight.toFixed(4)}</td>
+                <td>${criteria.attribute}</td>
+                <td>
+                  <button class="btn btn-warning btn-sm" onclick="editCriteria(${criteria.id})">Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteCriteria(${criteria.id})">Hapus</button>
+                </td>
+              </tr>
+            `;
+          });
+          document.getElementById('criteriaTable').innerHTML = tableRows;
+        });
+    }
+
+    // Handle form submission for adding criteria
+    document.getElementById('addForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('criteria-add.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text())
+        .then(data => {
+          alert('Kriteria berhasil ditambahkan');
+          loadCriteria();
+          document.getElementById('addForm').reset();
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+          modal.hide();
+        });
+    });
+
+    // Load criteria data on page load
+    document.addEventListener('DOMContentLoaded', loadCriteria);
+  </script>
 </body>
 
 </html>
