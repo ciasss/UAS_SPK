@@ -1,11 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    <?php require "layout/head.php";?>
+    <?php 
+    require "layout/head.php";
+    
+    // session_start(); // Mulai session
+        if (!isset($_SESSION['username'])) {
+            header("location:login.php"); // Redirect jika user belum login
+            exit;
+        }
+        $username = $_SESSION['username']; // Ambil username dari session
+    ?>
 
     <body>
         <div id="app">
-            <?php require "layout/sidebar.php";?>
+            <?php require "layout/sidebar_user.php";?>
             <div id="main">
                 <header class="mb-3">
                     <a href="#" class="burger-btn d-block d-xl-none">
@@ -13,7 +21,8 @@
                     </a>
                 </header>
                 <div class="page-heading">
-                    <h3>KELOMPOK 4</h3>
+                    <!-- welcome manager -->
+                    <h3>Welcome, <?= htmlspecialchars($username); ?></h3>
                 </div>
                 <div class="page-content">
                     <section class="row">

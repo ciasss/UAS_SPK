@@ -4,6 +4,7 @@ $dbhost = 'localhost';
 $dbuser = 'root';
 $dbpass = '';
 $dbname = 'db_dss';
+$dbrole = 'db_dss';
 //-- koneksi ke database server dengan extension mysqli
 $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 //-- hentikan program dan tampilkan pesan kesalahan jika koneksi gagal
