@@ -20,6 +20,15 @@ USING(id_alternative)
 GROUP BY a.id_alternative
 ORDER BY a.id_alternative";
 
+$sql2 = "SELECT
+  weight as bobot,
+  sum(if(id_criteria = 1, weight, 0)) as B1,
+  sum(if(id_criteria = 2, weight, 0)) as B2,
+  sum(if(id_criteria = 3, weight, 0)) as B3,
+  sum(if(id_criteria = 4, weight, 0)) as B4,
+  sum(if(id_criteria = 5, weight, 0)) as B5
+FROM
+  saw_criterias";
 ?>
 
 <body>
@@ -31,9 +40,11 @@ ORDER BY a.id_alternative";
           <i class="bi bi-justify fs-3"></i>
         </a>
       </header>
+
       <div class="page-heading">
         <h3>Matrik</h3>
       </div>
+      
       <div class="page-content">
         <section class="row">
           <div class="col-12">
@@ -51,10 +62,6 @@ ORDER BY a.id_alternative";
                     Rij = ( Xij/max{Xij} )
                   </p>
                 </div>
-                <button type="button" class="btn btn-outline-success btn-sm m-2" data-bs-toggle="modal"
-                  data-bs-target="#inlineForm">
-                  Isi Nilai Alternatif
-                </button>
                 <div class="table-responsive">
                   <table class="table table-striped mb-0">
                     <caption>Matrik Keputusan(X)</caption>
@@ -179,15 +186,6 @@ ORDER BY a.id_alternative";
                     </tr>
                     <?php
                     $result = $db->query($sql);
-                    $sql2 = "SELECT
-                      weight as bobot,
-                      sum(if(id_criteria = 1, weight, 0)) as B1,
-                      sum(if(id_criteria = 2, weight, 0)) as B2,
-                      sum(if(id_criteria = 3, weight, 0)) as B3,
-                      sum(if(id_criteria = 4, weight, 0)) as B4,
-                      sum(if(id_criteria = 5, weight, 0)) as B5
-                    FROM
-                      saw_criterias";
                     $result2 = $db->query($sql2);
                     while ($weight = $result2->fetch_object()) {
                       $bobot_C1 = round($weight->B1, 2);
@@ -214,15 +212,15 @@ ORDER BY a.id_alternative";
                       $bobot_ternormalisasi_C4 = round(($normalisasi_C4 * $bobot_C4), 3);
                       $bobot_ternormalisasi_C5 = round(($normalisasi_C4 * $bobot_C5), 3);
                       echo "<tr class='center'>
-  <th>A<sub>{$row->id_alternative}</sub> {$row->name}</th>
-  <td>" . $bobot_ternormalisasi_C1 . "</td>
-  <td>" . $bobot_ternormalisasi_C2 . "</td>
-  <td>" . $bobot_ternormalisasi_C3 . "</td>
-  <td>" . $bobot_ternormalisasi_C4 . "</td>
-  <td>" . $bobot_ternormalisasi_C5 . "</td>
-  
-  
-  </tr>\n";
+                        <th>A<sub>{$row->id_alternative}</sub> {$row->name}</th>
+                        <td>" . $bobot_ternormalisasi_C1 . "</td>
+                        <td>" . $bobot_ternormalisasi_C2 . "</td>
+                        <td>" . $bobot_ternormalisasi_C3 . "</td>
+                        <td>" . $bobot_ternormalisasi_C4 . "</td>
+                        <td>" . $bobot_ternormalisasi_C5 . "</td>
+                      
+                      
+                      </tr>\n";
                     }
                     $result->free();
 
@@ -240,15 +238,6 @@ ORDER BY a.id_alternative";
                     </tr>
                     <?php
                     $result = $db->query($sql);
-                    $sql2 = "SELECT
-          weight as bobot,
-          sum(if(id_criteria = 1, weight, 0)) as B1,
-          sum(if(id_criteria = 2, weight, 0)) as B2,
-          sum(if(id_criteria = 3, weight, 0)) as B3,
-          sum(if(id_criteria = 4, weight, 0)) as B4,
-          sum(if(id_criteria = 5, weight, 0)) as B5
-        FROM
-          saw_criterias";
                     $result2 = $db->query($sql2);
                     while ($weight = $result2->fetch_object()) {
                       $bobot_C1 = round($weight->B1, 2);
@@ -313,14 +302,14 @@ ORDER BY a.id_alternative";
                       <?php
                       $result = $db->query($sql);
                       $sql2 = "SELECT
-          weight as bobot,
-          sum(if(id_criteria = 1, weight, 0)) as B1,
-          sum(if(id_criteria = 2, weight, 0)) as B2,
-          sum(if(id_criteria = 3, weight, 0)) as B3,
-          sum(if(id_criteria = 4, weight, 0)) as B4,
-          sum(if(id_criteria = 5, weight, 0)) as B5
-        FROM
-          saw_criterias";
+                        weight as bobot,
+                        sum(if(id_criteria = 1, weight, 0)) as B1,
+                        sum(if(id_criteria = 2, weight, 0)) as B2,
+                        sum(if(id_criteria = 3, weight, 0)) as B3,
+                        sum(if(id_criteria = 4, weight, 0)) as B4,
+                        sum(if(id_criteria = 5, weight, 0)) as B5
+                      FROM
+                        saw_criterias";
                       $result2 = $db->query($sql2);
                       while ($weight = $result2->fetch_object()) {
                         $bobot_C1 = round($weight->B1, 2);
@@ -366,23 +355,23 @@ ORDER BY a.id_alternative";
                         // array_push($array_maxq, $relatif3);
                         // $maxq = max($array_maxq);
                         echo "<tr class='center'>
-  <th>S<sub>{$row->id_alternative}</sub></th>
-  <td>" . $bobot_relatif . "</td>
-  
-  
-  </tr>\n";
-                      }
-                      $getTotal_relatif = $total_relatif;
-                      $getTotal_cost = $total_cost;
+                          <th>S<sub>{$row->id_alternative}</sub></th>
+                          <td>" . $bobot_relatif . "</td>
+                          
+                          
+                          </tr>\n";
+                                              }
+                                              $getTotal_relatif = $total_relatif;
+                                              $getTotal_cost = $total_cost;
 
 
-                      echo "
-  <tr class='center'>
-  <th>Total</th>
-  <td>" . $total_relatif . "</td>
-  
-  
-  </tr>\n";
+                                              echo "
+                          <tr class='center'>
+                          <th>Total</th>
+                          <td>" . $total_relatif . "</td>
+                        
+                        
+                        </tr>\n";
                       $result->free();
 
                       ?>
@@ -401,15 +390,6 @@ ORDER BY a.id_alternative";
                     </tr>
                     <?php
                     $result = $db->query($sql);
-                    $sql2 = "SELECT
-          weight as bobot,
-          sum(if(id_criteria = 1, weight, 0)) as B1,
-          sum(if(id_criteria = 2, weight, 0)) as B2,
-          sum(if(id_criteria = 3, weight, 0)) as B3,
-          sum(if(id_criteria = 4, weight, 0)) as B4,
-          sum(if(id_criteria = 5, weight, 0)) as B5
-        FROM
-          saw_criterias";
                     $result2 = $db->query($sql2);
                     while ($weight = $result2->fetch_object()) {
                       $bobot_C1 = round($weight->B1, 2);
@@ -730,72 +710,6 @@ ORDER BY a.id_alternative";
         </section>
       </div>
       <?php require "layout/footer.php"; ?>
-    </div>
-  </div>
-
-  <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel33">Isi Nilai Kandidat </h4>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <i data-feather="x"></i>
-          </button>
-        </div>
-
-        <form action="matrik-simpan.php" method="POST">
-          <div class="modal-body">
-            <label>Name: </label>
-            <div class="form-group">
-              <select class="form-control form-select" name="id_alternative">
-                <?php
-                $sql = 'SELECT id_alternative,name FROM saw_alternatives';
-                $result = $db->query($sql);
-                $i = 0;
-                while ($row = $result->fetch_object()) {
-                  echo '<option value="' . $row->id_alternative . '">' . $row->name . '</option>';
-                }
-                $result->free();
-                ?>
-              </select>
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Criteria: </label>
-            <div class="form-group">
-              <select class="form-control form-select" name="id_criteria">
-                <?php
-                $sql = 'SELECT * FROM saw_criterias';
-                $result = $db->query($sql);
-                $i = 0;
-                while ($row = $result->fetch_object()) {
-                  echo '<option value="' . $row->id_criteria . '">' . $row->criteria . '</option>';
-                }
-                $result->free();
-                ?>
-              </select>
-            </div>
-          </div>
-          <div class="modal-body">
-            <label>Value: </label>
-            <div class="form-group">
-              <input type="text" name="value" placeholder="value..." class="form-control"
-                required>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Close</span>
-            </button>
-            <button type="submit" name="submit" class="btn btn-primary ml-1">
-              <i class="bx bx-check d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Simpan</span>
-            </button>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 
